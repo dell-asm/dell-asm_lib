@@ -1,0 +1,11 @@
+ASM001: <JA>Unable to perform operation because of some unknown exception.<JA>
+ASM001.ResponseAction: <JA>Contact your system administrator for more details.<JA>
+ASM001.DetailedDescription: <JA>Unable to perform operation because of some unknown exception.<JA>
+
+ASM002: <JA>Unable to suspend the virtual machine <1> because the virtual machine is in powered Off state.<JA>
+ASM002.ResponseAction: <JA>Make sure that the virtual machine is powered On.<JA>
+ASM002.DetailedDescription: <JA>Unable to suspend the virtual machine because the virtual machine is in powered Off state.<JA>
+    
+ASM003: <JA>Unable to reset the virtual machine <1> because the virtual machine is powered Off or suspended.<JA>
+ASM003.ResponseAction: <JA>Make sure that the virtual machine is powered On.<JA>
+ASM003.DetailedDescription: <JA>Unable to reset the virtual machine because the virtual machine is powered Off or suspended.<JA>

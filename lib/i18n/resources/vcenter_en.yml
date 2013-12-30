@@ -1,0 +1,15 @@
+ASM001: Unable to perform operation because of some unknown exception.
+ASM001.ResponseAction: Contact your system administrator for more details.
+ASM001.DetailedDescription: Unable to perform operation because of some unknown exception.
+
+ASM002: Unable to suspend the virtual machine <1> because the virtual machine is in powered Off state.
+ASM002.ResponseAction: Make sure that the virtual machine is powered On.
+ASM002.DetailedDescription: Unable to suspend the virtual machine because the virtual machine is in powered Off state.
+    
+ASM003: Unable to reset the virtual machine <1> because the virtual machine is powered Off or suspended.
+ASM003.ResponseAction: Make sure that the virtual machine is powered On.
+ASM003.DetailedDescription: Unable to reset the virtual machine because the virtual machine is powered Off or suspended.
+
+ASM004: Name of VM cannot be nil or empty.
+ASM004.ResponseAction: Make sure that the virtual machine is specified.
+ASM004.DetailedDescription: Unable to perform operation because name of VM is nil or empty.
