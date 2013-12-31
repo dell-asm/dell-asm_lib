@@ -9,8 +9,9 @@ begin
 end
 
 class AsmException < Exception
-  def initialize(msgcode, e=nil, args=nil)
+  def initialize(msgcode, callermodule, e=nil, args=nil)
     @msgcode = msgcode
+    @callermodule = callermodule
     @e= e
     @args = args
     super(e)
@@ -65,9 +66,29 @@ class AsmException < Exception
 
     data = read_yml_file(locale)
 
-    display_message = process_display_message(data[display_message_key])
-    response_action = data[response_action_key]
-    detailed_description = data[detailed_description_key]
+    if(data != nil)
+      if(process_display_message(data[display_message_key]) != nil)
+        display_message = process_display_message(data[display_message_key])
+      else
+        display_message = display_message_key
+      end
+
+      if(data[response_action_key] != nil)
+        response_action = data[response_action_key]
+      else
+        response_action = response_action_key
+      end
+
+      if(data[detailed_description_key] != nil)
+        detailed_description = data[detailed_description_key]
+      else
+        detailed_description = detailed_description_key
+      end
+    else
+      display_message = display_message_key
+      response_action = response_action_key
+      detailed_description = detailed_description_key
+    end
 
     asm_localized_message = AsmLocalizedMessage.new
     asm_localized_message.display_message=(display_message)
@@ -77,9 +98,13 @@ class AsmException < Exception
   end
 
   def read_yml_file(locale)
-    callermodule = "vcenter"
-    locale.downcase!()
-    data = YAML.load_file "#{$i18n_path}resources/#{callermodule}_#{locale}.yml"
+    begin
+      locale.downcase!()
+      data = YAML.load_file "#{$i18n_path}resources/#{@callermodule}_#{locale}.yml"
+    rescue Exception => e
+      data = nil
+    end
+    return data
   end
 
   def process_display_message(display_message)

@@ -7,6 +7,7 @@ Usage Scenario in Puppet Provider:
   def power_state=(value)
     Puppet.debug "Setting the power state of the virtual machine."
     begin
+
       # Perform operations if desired power_state=:poweredOff
       if value == :poweredOff
         if ((vm.guest.toolsStatus != 'toolsNotInstalled') or (vm.guest.toolsStatus != 'toolsNotRunning')) and resource[:graceful_shutdown] == :true
@@ -29,20 +30,20 @@ Usage Scenario in Puppet Provider:
         if power_state == "poweredOn"
           vm.SuspendVM_Task.wait_for_completion
         else
-          raise AsmException.new("ASM002", nil, [vm.name])
+          raise AsmException.new("ASM002", $CALLER_MODULE, nil, [vm.name])
         end
         # Perform operations if desired power_state=:reset
       elsif value == :reset
         if power_state !~ /poweredOff|suspended/i
           vm.ResetVM_Task.wait_for_completion
         else
-          raise AsmException.new("ASM003", nil, [vm.name])
+          raise AsmException.new("ASM003", $CALLER_MODULE, nil, [vm.name])
         end
       end
     rescue AsmException => ae
       ae.log_message
     rescue Exception => e
-      AsmException.new("ASM001", e).log_message
+      AsmException.new("ASM001", $CALLER_MODULE, e).log_message
     end
   end
   
@@ -56,7 +57,7 @@ newparam(:name, :namevar => true) do
     desc "The virtual machine name."
     validate do |value|
       if value.strip.length == 0
-        raise AsmException.new("ASM004").message
+        raise AsmException.new("ASM004", $CALLER_MODULE).message
       end
     end
   end
