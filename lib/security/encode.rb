@@ -5,9 +5,20 @@ def asm_decrypt(message)
   if isEncryption != true
     return message
   end
+  if check_base64(message) != true
+    return message
+  end
   password = message[0,32]
   message = message[32,message.length]
   decryptWithSecret(message,password)
+end
+
+def check_base64(string_input)
+  if string_input =~ /^([A-Za-z0-9+\/]{4})*([A-Za-z0-9+\/]{4}|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{2}==)$/
+    true
+  else
+    false
+  end
 end
 
 def decryptWithSecret(message, password)
